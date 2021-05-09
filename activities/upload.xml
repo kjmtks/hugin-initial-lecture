@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Activity Version="hugin-0.9">
+
+  <Sandbox>default</Sandbox>
+
+  <Usage>
+File Upload
+
+Parameters:
+
+* Name
+* Subject
+* Description
+* Tags
+* Deadline
+
+* FileName
+* AllowedContentTypes
+
+* (optional) CanSubmitAfterDeadline
+* (optional) ConfirmAutomatically
+
+  </Usage>
+
+  <Name>@ViewBag.Name</Name>
+  <Subject>@ViewBag.Subject</Subject>
+  <Directory>@ViewBag.Name</Directory>
+  @if(Model.HasParameter("Description")) {
+    <Description UseMarkdown="true">@ViewBag.Description.ToString().Trim()</Description>
+  }
+  @if(Model.HasParameter("Tags")) {
+    <Tags>@ViewBag.Tags.ToString().Trim()</Tags>
+  }
+  @if(Model.HasParameter("Deadline")) {
+    <Deadline>@ViewBag.Deadline</Deadline>
+  }
+  <Flags>
+    <UseStdout>false</UseStdout>
+    <UseStderr>false</UseStderr>
+    <UseCommand>false</UseCommand>
+    <UseSave>true</UseSave>
+    <UseReset>false</UseReset>
+    @if(Model.HasParameter("CanSubmitAfterDeadline")) {
+      <CanSubmitAfterDeadline>@ViewBag.CanSubmitAfterDeadline</CanSubmitAfterDeadline>
+    }
+    @if(Model.HasParameter("ConfirmAutomatically")) {
+      <ConfirmAutomatically>@ViewBag.ConfirmAutomatically</ConfirmAutomatically>
+    }
+  </Flags>
+
+  <Files>
+
+    <Upload Name="@ViewBag.FileName" Label="File" Accept="@ViewBag.AllowedContentTypes" Maxsize="@(20 * 1024 * 1024)" Submit="true" />
+
+  </Files>
+
+
+</Activity>
