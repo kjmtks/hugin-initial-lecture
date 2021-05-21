@@ -15,7 +15,8 @@ Parameters:
 * Deadline
 * (optional) CanSubmitAfterDeadline
 * (optional) CanSubmitBeforeAccept
-* (optional) CanValidateBeforeRun
+* (optional) CanSubmitBeforeRun
+* (optional) CanValidateBeforeSubmit
 * (optional) ConfirmAutomatically
 
 * (optional) CodeDefault
@@ -53,6 +54,9 @@ Parameters:
     }
     @if(Model.HasParameter("CanSubmitBeforeAccept")) {
      <CanSubmitBeforeAccept>@ViewBag.CanSubmitBeforeAccept</CanSubmitBeforeAccept>
+    }
+    @if(Model.HasParameter("CanSubmitBeforeRun")) {
+      <CanSubmitBeforeRun>@ViewBag.CanSubmitBeforeRun</CanSubmitBeforeRun>
     }
     @if(Model.HasParameter("CanValidateBeforeRun")) {
       <CanValidateBeforeRun>@ViewBag.CanValidateBeforeRun</CanValidateBeforeRun>

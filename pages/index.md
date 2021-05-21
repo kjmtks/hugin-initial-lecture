@@ -13,6 +13,9 @@ print `Hello, World!!`
   <NumOfTestCases>1</NumOfTestCases>
   <TestCase1Answer>Hello, World!!</TestCase1Answer>
   <ConfirmAutomatically>true</ConfirmAutomatically>
+  <CanSubmitBeforeRun>false</CanSubmitBeforeRun>
+  <CanSubmitBeforeAccept>false</CanSubmitBeforeAccept>
+  <CanValidateBeforeRun>false</CanValidateBeforeRun>
 </script>
 
 <script language="activity" ref="python3.xml">

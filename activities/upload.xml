@@ -17,6 +17,7 @@ Parameters:
 * FileName
 * AllowedContentTypes
 
+* (optional) CanSubmitBeforeRun
 * (optional) CanSubmitAfterDeadline
 * (optional) ConfirmAutomatically
 
@@ -40,6 +41,9 @@ Parameters:
     <UseCommand>false</UseCommand>
     <UseSave>true</UseSave>
     <UseReset>false</UseReset>
+    @if(Model.HasParameter("CanSubmitBeforeRun")) {
+      <CanSubmitBeforeRun>@ViewBag.CanSubmitBeforeRun</CanSubmitBeforeRun>
+    }
     @if(Model.HasParameter("CanSubmitAfterDeadline")) {
       <CanSubmitAfterDeadline>@ViewBag.CanSubmitAfterDeadline</CanSubmitAfterDeadline>
     }
