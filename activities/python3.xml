@@ -119,7 +119,7 @@ Parameters:
   </Run>
 
   <Limits>
-    <CpuTime>10</CpuTime>
+    <CpuTime>20</CpuTime>
     <Memory>100M</Memory>
     <StdoutLength>50000</StdoutLength>
     <StderrLength>50000</StderrLength>
