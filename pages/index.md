@@ -1,57 +1,57 @@
-# @Model.Lecture.Subject
+# {{ lecture.subject }}
 
-@Model.Lecture.Description
+{{ lecture.description }}
 
 <script language="activity" ref="python3.xml">
-  <Name>python3/test1</Name>
-  <Subject>Python</Subject>
-  <Deadline>@ViewBag.deadline</Deadline>
-  <Description>
+  <name>python3/test1</name>
+  <subject>Python</subject>
+  <deadline>{{ deadline }}</deadline>
+  <description>
 print `Hello, World!!`
-  </Description>
-  <CodeAnswer>print("Hello, World!!")</CodeAnswer>
-  <NumOfTestCases>1</NumOfTestCases>
-  <TestCase1Answer>Hello, World!!</TestCase1Answer>
-  <ConfirmAutomatically>true</ConfirmAutomatically>
-  <CanSubmitBeforeRun>false</CanSubmitBeforeRun>
-  <CanSubmitBeforeAccept>false</CanSubmitBeforeAccept>
-  <CanValidateBeforeRun>false</CanValidateBeforeRun>
+  </description>
+  <code_answer>print("Hello, World!!")</code_answer>
+  <num_of_testcases>1</num_of_testcases>
+  <testcase1answer>Hello, World!!</testcase1answer>
+  <confirm_automatically>true</confirm_automatically>
+  <can_submit_before_run>false</can_submit_before_run>
+  <can_submit_before_accept>false</can_submit_before_accept>
+  <can_validate_before_run>false</can_validate_before_run>
 </script>
 
 <script language="activity" ref="python3.xml">
-  <Name>python3/test2</Name>
-  <Subject>Draw Graph</Subject>
-  <Deadline>@ViewBag.deadline</Deadline>
-  <Description>
+  <name>python3/test2</name>
+  <subject>Draw Graph</subject>
+  <deadline>{{ deadline }}</deadline>
+  <description>
 Draw a graph $ y = 1 - \exp\left(-x/20\right) $
-  </Description>
-  <Tags>ToBeGraded</Tags>
-  <CodeDefault>
+  </description>
+  <tags>ToBeGraded</tags>
+  <code_default>
 import numpy as np
 import matplotlib.pyplot as plt
 x = np.arange(0, 100, 0.1)
 y = 1 - np.exp(-x / 20)
 plt.plot(x, y)
 plt.savefig('mygraph01.png')
-  </CodeDefault>
-  <NumOfCsvFiles>2</NumOfCsvFiles>
-  <Csv1Name>data1.csv</Csv1Name>
-  <Csv2Name>data2.csv</Csv2Name>
+  </code_default>
+  <num_of_csv_files>2</num_of_csv_files>
+  <csv1name>data1.csv</csv1name>
+  <csv2name>data2.csv</csv2name>
 </script>
 
 <script language="activity" ref="upload.xml">
-  <Name>python3/test3</Name>
-  <Subject>File Upload</Subject>
-  <Deadline>@ViewBag.deadline</Deadline>
-  <FileName>file.pdf</FileName>
-  <AllowedContentTypes>application/pdf</AllowedContentTypes>
+  <name>python3/test3</name>
+  <subject>File Upload</subject>
+  <deadline>{{ deadline }}</deadline>
+  <file_name>file.pdf</file_name>
+  <allowed_content_types>application/pdf</allowed_content_types>
 </script>
 
 <script language="activity" ref="form.xml">
-  <Name>python3/test4</Name>
-  <Subject>Form</Subject>
-  <Deadline>@ViewBag.deadline</Deadline>
-  <Forms>
+  <name>python3/test4</name>
+  <subject>Form</subject>
+  <deadline>@ViewBag.deadline</deadline>
+  <forms>
 
       <Text>TEXT</Text>
 
@@ -79,6 +79,6 @@ plt.savefig('mygraph01.png')
        <Answer>Hello</Answer>
       </Textarea>
 
-  </Forms>
+  </forms>
 </script>
 
