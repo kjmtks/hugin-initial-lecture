@@ -1,110 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Activity Version="hugin-0.9">
-
   <Sandbox>default</Sandbox>
 
-  <Usage>
-# Python 3.x
+  <Name>{{ name }}</Name>
+  <Subject>{{ subject }}</Subject>
+  <Directory>{{ name }}</Directory>
+  <Description UseMarkdown="true">{{ description }}</Description>
+  <Tags>{{ tags }}</Tags>
+  <Deadline>{{ deadline }}</Deadline>
 
-Parameters:
-
-* Name
-* Subject
-* Description
-* Tags
-* Deadline
-* (optional) CanSubmitAfterDeadline
-* (optional) CanSubmitBeforeAccept
-* (optional) CanSubmitBeforeRun
-* (optional) CanValidateBeforeSubmit
-* (optional) ConfirmAutomatically
-
-* (optional) CodeDefault
-* (optional) CodeAnswer
-
-* (optional) NumOfCsvFiles
-** (optional) Csv1Name, Csv2Name, ...
-** (optional) Csv1Default, Csv2Default, ...
-** (optional) Csv1Answer, Csv2Answer, ...
-
-* (optional) NumOfTestCases
-** (optional) TestCase1Answer, TestCase2Answer, ...
-  </Usage>
-
-  <Name>@ViewBag.Name</Name>
-  <Subject>@ViewBag.Subject</Subject>
-  <Directory>@ViewBag.Name</Directory>
-  @if(Model.HasParameter("Description")) {
-    <Description UseMarkdown="true">@ViewBag.Description.ToString().Trim()</Description>
-  }
-  @if(Model.HasParameter("Tags")) {
-    <Tags>@ViewBag.Tags.ToString().Trim()</Tags>
-  }
-  @if(Model.HasParameter("Deadline")) {
-    <Deadline>@ViewBag.Deadline</Deadline>
-  }
   <Flags>
     <UseStdout>true</UseStdout>
     <UseStderr>true</UseStderr>
     <UseCommand>true</UseCommand>
     <UseSave>true</UseSave>
     <UseReset>true</UseReset>
-    @if(Model.HasParameter("CanSubmitAfterDeadline")) {
-      <CanSubmitAfterDeadline>@ViewBag.CanSubmitAfterDeadline</CanSubmitAfterDeadline>
-    }
-    @if(Model.HasParameter("CanSubmitBeforeAccept")) {
-     <CanSubmitBeforeAccept>@ViewBag.CanSubmitBeforeAccept</CanSubmitBeforeAccept>
-    }
-    @if(Model.HasParameter("CanSubmitBeforeRun")) {
-      <CanSubmitBeforeRun>@ViewBag.CanSubmitBeforeRun</CanSubmitBeforeRun>
-    }
-    @if(Model.HasParameter("CanValidateBeforeRun")) {
-      <CanValidateBeforeRun>@ViewBag.CanValidateBeforeRun</CanValidateBeforeRun>
-    }
-    @if(Model.HasParameter("ConfirmAutomatically")) {
-      <ConfirmAutomatically>@ViewBag.ConfirmAutomatically</ConfirmAutomatically>
-    }
+    {{ if !is_null_or_whitespace(can_submit_after_deadline) }}
+      <CanSubmitAfterDeadline>{{ can_submit_after_deadline }}</CanSubmitAfterDeadline>
+    {{ end }}
+    {{ if !is_null_or_whitespace(can_submit_before_accept) }}
+      <CanSubmitBeforeAccept>{{ can_submit_before_accept }}</CanSubmitBeforeAccept>
+    {{ end }}
+    {{ if !is_null_or_whitespace(can_submit_before_run) }}
+      <CanSubmitBeforeRun>{{ can_submit_before_run }}</CanSubmitBeforeRun>
+    {{ end }}
+    {{ if !is_null_or_whitespace(can_validate_before_run) }}
+      <CanValidateBeforeRun>{{ can_validate_before_run }}</CanValidateBeforeRun>
+    {{ end }}
+    {{ if !is_null_or_whitespace(confirm_automatically) }}
+      <ConfirmAutomatically>{{ confirm_automatically }}</ConfirmAutomatically>
+    {{ end }}
   </Flags>
 
   <Files>
-
     <Code Name="program.py" Label="Main program" Language="python" ContentType="text/plain" Maxlength="10000" Submit="true">
-      @if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"CodeDefault")))
-      {
-        <Default>@ViewBag.CodeDefault.ToString().Trim()</Default>
-      }
-      @if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"CodeAnswer")))
-      {
-        <Answer>@ViewBag.CodeAnswer.ToString().Trim()</Answer>
-      }
-      else if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"CodeDefault")))
-      {
-        <Answer>@ViewBag.CodeDefault.ToString().Trim()</Answer>
-      }
+      <Default>{{ code_default }}</Default>
+      {{ if !is_null_or_whitespace(code_answer) }}
+        <Answer>{{ code_answer }}</Answer>
+      {{ else}}
+        <Answer>{{ code_default }}</Answer>
+      {{ end }}
     </Code>
 
-    @if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"NumOfCsvFiles")))
-    {
-      @for(var i = 0; i < int.Parse(ViewBag.NumOfCsvFiles); i++)
-      {
-        @if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"Csv{i + 1}Name")))
-        {
-          <Code Name="@Model.GetParameter($"Csv{i + 1}Name")" Label="@Model.GetParameter($"Csv{i + 1}Name")" Language="text" ContentType="text/plain" Maxlength="10000" ReadOnly="false" Submit="true">
-            @if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"Csv{i + 1}Default"))) {
-              <Default>@Model.GetParameter($"Csv{i + 1}Default").ToString().Trim()</Default>
-            }
-            @if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"Csv{i + 1}Answer"))) {
-              <Answer>@Model.GetParameter($"Csv{i + 1}Answer").ToString().Trim()</Answer>
-            }
-            else if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"Csv{i + 1}Default")))
-            {
-              <Answer>@Model.GetParameter($"Csv{i + 1}Default").ToString().Trim()</Answer>
-            }
-          </Code>
-        }
-      }
-    }
-
+    {{ if !is_null_or_whitespace(num_of_csv_files) }}
+      {{ for $i in 1..string.to_int(num_of_csv_files) }}
+        <Code Name="{{ get_parameter("csv" + $i + "name") }}"
+              Label="{{ get_parameter("csv" + $i + "name") }}"
+              Language="text" ContentType="text/csv" Maxlength="10000" ReadOnly="false" Submit="true">
+          <Default>{{ get_parameter("csv" + $i + "default") }}</Default>
+          {{ if !is_null_or_whitespace(get_parameter("csv" + $i + "answer")) }}
+            <Answer>{{ get_parameter("csv" + $i + "answer") }}</Answer>
+          {{ else}}
+            <Answer>{{ get_parameter("csv" + $i + "default") }}</Answer>
+          {{ end }}
+        </Code>
+      {{ end }}
+    {{ end }}
   </Files>
 
   <Run>
@@ -120,26 +70,21 @@ Parameters:
 
   <Limits>
     <CpuTime>20</CpuTime>
-    <Memory>100M</Memory>
+    <Memory>300M</Memory>
     <StdoutLength>50000</StdoutLength>
     <StderrLength>50000</StderrLength>
-    <Pids>10</Pids>
+    <Pids>30</Pids>
   </Limits>
   
   <Validations>
-    @if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"NumOfTestCases")))
-    {
-      @for(var i = 0; i < int.Parse(ViewBag.NumOfTestCases); i++)
-      {
-        @if(!string.IsNullOrWhiteSpace(Model.GetParameterAsString($"TestCase{i + 1}Answer")))
-        {  
-          <Validation Name="testcase@(i + 1)" Type="Equals">
-            <Run>python3 program.py</Run>
-            <Answer>@Model.GetParameter($"TestCase{i + 1}Answer").ToString().Trim()</Answer>
-          </Validation>
-        }
-      }
-    }
+    {{ if !is_null_or_whitespace(num_of_testcases) }}
+      {{ for $i in 1..string.to_int(num_of_testcases) }}
+        <Validation Name="{{ "testcase" + $i }}" Type="Equals">
+          <Run>python3 program.py</Run>
+          <Answer>{{ get_parameter("testcase" + $i + "answer") }}</Answer>
+        </Validation>
+      {{ end }}
+    {{ end }}
   </Validations>
 
 </Activity>
