@@ -1,0 +1,428 @@
+<Activity Version="hugin-0.9">
+  <Sandbox>default</Sandbox>
+
+  <Name>{{ name }}</Name>
+  <Subject>{{ subject }}</Subject>
+  <Directory>{{ name }}</Directory>
+  <Description UseMarkdown="true">{{ description }}</Description>
+  <Tags>{{ tags }}</Tags>
+  <Deadline>{{ deadline }}</Deadline>
+
+  <Flags>
+    <UseStdout>true</UseStdout>
+    <UseStderr>true</UseStderr>
+    <UseCommand>true</UseCommand>
+    <UseSave>true</UseSave>
+    <UseReset>true</UseReset>
+    {{ if !is_null_or_whitespace(can_submit_after_deadline) }}
+      <CanSubmitAfterDeadline>{{ can_submit_after_deadline }}</CanSubmitAfterDeadline>
+    {{ end }}
+    {{ if !is_null_or_whitespace(can_submit_before_accept) }}
+      <CanSubmitBeforeAccept>{{ can_submit_before_accept }}</CanSubmitBeforeAccept>
+    {{ end }}
+    {{ if !is_null_or_whitespace(can_submit_before_run) }}
+      <CanSubmitBeforeRun>{{ can_submit_before_run }}</CanSubmitBeforeRun>
+    {{ end }}
+    {{ if !is_null_or_whitespace(can_validate_before_run) }}
+      <CanValidateBeforeRun>{{ can_validate_before_run }}</CanValidateBeforeRun>
+    {{ end }}
+    {{ if !is_null_or_whitespace(confirm_automatically) }}
+      <ConfirmAutomatically>{{ confirm_automatically }}</ConfirmAutomatically>
+    {{ end }}
+  </Flags>
+
+  <Files>
+    <Blockly Name="blockly.xml" CodeFile="blockly.py" Label="Blockly" Height="{{ height }}" Submit="true">
+      <Default>{{ trim(default) }}</Default>
+      {{ if !is_null_or_whitespace(code_answer) }}
+        <Answer>{{ trim(answer) }}</Answer>
+      {{ else}}
+        <Answer>{{ trim(default) }}</Answer>
+      {{ end }}
+
+      <Configure>
+        {
+          "maxBlocks": 0,
+          "grid": {
+            "spacing": 18,
+            "length": 3,
+            "colour": "#ccc",
+            "snap": true
+          },
+          "trashcan": true,
+          "zoom": {
+            "controls": true,
+            "startScale": 1,
+            "maxScale": 3,
+            "minScale": 0.3,
+            "scaleSpeed": 1.2
+          },
+          "move": {
+            "drag": true,
+            "wheel": true
+          }
+        }
+      </Configure>
+
+      <Toolbox>
+        <category name="論理" colour="%{BKY_LOGIC_HUE}">
+          <block type="controls_if"></block>
+          <block type="logic_compare"></block>
+          <block type="logic_operation"></block>
+          <block type="logic_negate"></block>
+          <block type="logic_boolean"></block>
+          <block type="logic_null"></block>
+          <block type="logic_ternary"></block>
+        </category>
+        <category name="繰り返し" colour="%{BKY_LOOPS_HUE}">
+          <block type="controls_repeat_ext">
+            <value name="TIMES">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="controls_whileUntil"></block>
+          <block type="controls_for">
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="controls_forEach"></block>
+          <block type="controls_flow_statements"></block>
+        </category>
+        <category name="数学" colour="%{BKY_MATH_HUE}">
+          <block type="math_number">
+            <field name="NUM">123</field>
+          </block>
+          <block type="math_arithmetic">
+            <value name="A">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="B">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_single">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">9</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_trig">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">45</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_constant"></block>
+          <block type="math_number_property">
+            <value name="NUMBER_TO_CHECK">
+              <shadow type="math_number">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_round">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">3.1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_on_list"></block>
+          <block type="math_modulo">
+            <value name="DIVIDEND">
+              <shadow type="math_number">
+                <field name="NUM">64</field>
+              </shadow>
+            </value>
+            <value name="DIVISOR">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_constrain">
+            <value name="VALUE">
+              <shadow type="math_number">
+                <field name="NUM">50</field>
+              </shadow>
+            </value>
+            <value name="LOW">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="HIGH">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_random_int">
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_random_float"></block>
+          <block type="math_atan2">
+            <value name="X">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="Y">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+        <category name="テキスト" colour="%{BKY_TEXTS_HUE}">
+          <block type="text"></block>
+          <block type="text_join"></block>
+          <block type="text_append">
+            <value name="TEXT">
+              <shadow type="text"></shadow>
+            </value>
+          </block>
+          <block type="text_length">
+            <value name="VALUE">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_isEmpty">
+            <value name="VALUE">
+              <shadow type="text">
+                <field name="TEXT"></field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_indexOf">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">{textVariable}</field>
+              </block>
+            </value>
+            <value name="FIND">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_charAt">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">{textVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="text_getSubstring">
+            <value name="STRING">
+              <block type="variables_get">
+                <field name="VAR">{textVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="text_changeCase">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_trim">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_print">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_prompt_ext">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+        <category name="リスト" colour="%{BKY_LISTS_HUE}">
+          <block type="lists_create_with">
+            <mutation items="0"></mutation>
+          </block>
+          <block type="lists_create_with"></block>
+          <block type="lists_repeat">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">5</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="lists_length"></block>
+          <block type="lists_isEmpty"></block>
+          <block type="lists_indexOf">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">{listVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_getIndex">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">{listVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_setIndex">
+            <value name="LIST">
+              <block type="variables_get">
+                <field name="VAR">{listVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_getSublist">
+            <value name="LIST">
+              <block type="variables_get">
+                <field name="VAR">{listVariable}</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_split">
+            <value name="DELIM">
+              <shadow type="text">
+                <field name="TEXT">,</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="lists_sort"></block>
+        </category>
+        <category name="色" colour="%{BKY_COLOUR_HUE}">
+          <block type="colour_picker"></block>
+          <block type="colour_random"></block>
+          <block type="colour_rgb">
+            <value name="RED">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+            <value name="GREEN">
+              <shadow type="math_number">
+                <field name="NUM">50</field>
+              </shadow>
+            </value>
+            <value name="BLUE">
+              <shadow type="math_number">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="colour_blend">
+            <value name="COLOUR1">
+              <shadow type="colour_picker">
+                <field name="COLOUR">#ff0000</field>
+              </shadow>
+            </value>
+            <value name="COLOUR2">
+              <shadow type="colour_picker">
+                <field name="COLOUR">#3333ff</field>
+              </shadow>
+            </value>
+            <value name="RATIO">
+              <shadow type="math_number">
+                <field name="NUM">0.5</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+        <sep></sep>
+        <category name="変数" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+        <category name="関数" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
+        {{ if !is_null_or_whitespace(toolbox) }}
+          {{ toolbox }}
+        {{ end }}
+      </Toolbox>
+      {{ if !is_null_or_whitespace(block_definition) }}
+        <BlockDefinition>{{ decode_html(block_definition) }}</BlockDefinition>
+      {{ end }}
+    </Blockly>
+  </Files>
+
+  <Runners>
+    <Runner Name="run" Subject="ブロックを実行" Icon="fas fa-play" Auxiliary="false">
+      rm -f *.png
+      python3 blockly.py
+      c=`ls -F *.png 2> /dev/null | wc -l`
+      if [ $c -gt 0 ]; then
+        files=$(ls -1 | grep '.png$' | tr '\n' ' ' | sed 's/[ \t]*$//')
+        echo "image Figures $files" > $CMD
+        echo "submit $files" > $CMD
+      fi
+    </Runner>
+    <Runner Name="cat" Subject="コードを確認" Icon="fas fa-search" Auxiliary="true">
+      rm -f *.png
+      cat blockly.py
+      c=`ls -F *.png 2> /dev/null | wc -l`
+      if [ $c -gt 0 ]; then
+        files=$(ls -1 | grep '.png$' | tr '\n' ' ' | sed 's/[ \t]*$//')
+        echo "image Figures $files" > $CMD
+        echo "submit $files" > $CMD
+      fi
+    </Runner>
+  </Runners>
+
+  <Limits>
+    <CpuTime>20</CpuTime>
+    <Memory>300M</Memory>
+    <StdoutLength>50000</StdoutLength>
+    <StderrLength>50000</StderrLength>
+    <Pids>30</Pids>
+  </Limits>
+  
+  <Validations>
+    {{ if !is_null_or_whitespace(num_of_testcases) }}
+      {{ for $i in 1..string.to_int(num_of_testcases) }}
+        <Validation Name="{{ "testcase" + $i }}" Type="Equals">
+          <Run>python3 blockly.py</Run>
+          <Answer>{{ trim(get_parameter("testcase" + $i + "answer")) }}</Answer>
+        </Validation>
+      {{ end }}
+    {{ end }}
+  </Validations>
+
+</Activity>
