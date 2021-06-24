@@ -29,27 +29,6 @@ print `Hello, World!!` 10 times
 <xml xmlns="https://developers.google.com/blockly/xml"><block type="controls_repeat" id="m,CEp}{}IjQ*0NJkJ.%f" x="333" y="135"><field name="TIMES">0</field><statement name="DO"><block type="text_print" id="OV986kJ%kP4r@D$$=ybY"><value name="TEXT"><block type="text" id="7B-ZH5|~ir7]{#D5xiv{"><field name="TEXT"></field></block></value></block></statement></block></xml>
   </default>
   <height>800px</height>
-  <toolbox></toolbox>
-  <block_definition>
-[{
-  "type": "test",
-  "message0": "%1 %2",
-  "args0": [
-    {
-      "type": "field_label_serializable",
-      "name": "NAME",
-      "text": "aaaa"
-    },
-    {
-      "type": "input_value",
-      "name": "NAME"
-    }
-  ],
-  "colour": 230,
-  "tooltip": "",
-  "helpUrl": ""
-}]
-  </block_definition>
   <num_of_testcases>1</num_of_testcases>
   <testcase1answer>Hello, World!!
 Hello, World!!
