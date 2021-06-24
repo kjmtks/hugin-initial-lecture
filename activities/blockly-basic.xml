@@ -191,6 +191,9 @@
             </value>
           </block>
           <block type="math_random_float"></block>
+          
+          <block type="my_random_integer"></block>
+          
           <block type="math_atan2">
             <value name="X">
               <shadow type="math_number">
@@ -366,13 +369,44 @@
         <sep></sep>
         <category name="変数" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
         <category name="関数" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
-        {{ if !is_null_or_whitespace(toolbox) }}
-          {{ toolbox }}
-        {{ end }}
       </Toolbox>
-      {{ if !is_null_or_whitespace(block_definition) }}
-        <BlockDefinition>{{ decode_html(block_definition) }}</BlockDefinition>
-      {{ end }}
+      
+      <BlockDefinition>
+[{
+  "type": "my_random_integer",
+  "message0": "random %1 min %2 max %3",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_value",
+      "name": "min",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "max",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "output": null,
+  "colour": 230,
+  "tooltip": "Getting a random integer between two values",
+  "helpUrl": ""
+}]
+      </BlockDefinition>
+      
+      <Generator Name="my_random_integer">
+        (proto, block) => { 
+          var value_min = proto.valueToCode(block, 'min', proto.ORDER_ATOMIC);
+          var value_max = proto.valueToCode(block, 'max', proto.ORDER_ATOMIC);
+          var code = "random.uniform(" + value_min + "," + value_max + ")";
+          proto.definitions_['import_random'] = 'import random';
+          return [code, proto.ORDER_NONE];
+        };
+      </Generator>
     </Blockly>
   </Files>
 
