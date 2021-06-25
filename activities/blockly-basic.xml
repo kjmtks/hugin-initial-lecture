@@ -34,7 +34,7 @@
   <Files>
     <Blockly Name="blockly.xml" CodeFile="blockly.py" Label="Blockly" Height="{{ height }}" Submit="true">
       <Default>{{ trim(default) }}</Default>
-      {{ if !is_null_or_whitespace(code_answer) }}
+      {{ if !is_null_or_whitespace(answer) }}
         <Answer>{{ trim(answer) }}</Answer>
       {{ else}}
         <Answer>{{ trim(default) }}</Answer>
@@ -387,7 +387,7 @@
         <Definition>
 {
   "type": "my_random_guassian",
-  "message0": "μ = %1, σ = %2 の正規分布に従う乱数",
+  "message0": "平均が %1, 標準偏差が %2 の正規分布に従う乱数",
   "args0": [
     {
       "type": "input_value",
