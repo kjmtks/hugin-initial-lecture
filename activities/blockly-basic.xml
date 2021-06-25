@@ -192,7 +192,19 @@
           </block>
           <block type="math_random_float"></block>
           
-          <block type="my_random_integer"></block>
+          <block type="my_random_guassian">
+            <value name="mu">
+              <shadow type="math_number">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+            <value name="sigma">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+              
+          </block>
           
           <block type="math_atan2">
             <value name="X">
@@ -374,35 +386,32 @@
       <Block>
         <Definition>
 {
-  "type": "my_random_integer",
-  "message0": "random %1 min %2 max %3",
+  "type": "my_random_guassian",
+  "message0": "μ = %1, σ = %2 の正規分布に従う乱数",
   "args0": [
     {
-      "type": "input_dummy"
-    },
-    {
       "type": "input_value",
-      "name": "min",
+      "name": "mu",
       "check": "Number"
     },
     {
       "type": "input_value",
-      "name": "max",
+      "name": "sigma",
       "check": "Number"
     }
   ],
   "inputsInline": true,
   "output": null,
   "colour": 230,
-  "tooltip": "Getting a random integer between two values",
+  "tooltip": "Getting a gaussian random value",
   "helpUrl": ""
 }
         </Definition>
         <Generator>
 (blockly, block) => { 
-    var value_min = blockly.Python.valueToCode(block, 'min', blockly.Python.ORDER_ATOMIC);
-    var value_max = blockly.Python.valueToCode(block, 'max', blockly.Python.ORDER_ATOMIC);
-    var code = "random.randint(" + value_min + "," + value_max + ")";
+    var value_mu = blockly.Python.valueToCode(block, 'mu', blockly.Python.ORDER_ATOMIC);
+    var value_sigma = blockly.Python.valueToCode(block, 'sigma', blockly.Python.ORDER_ATOMIC);
+    var code = "random.gauss(" + value_mu + "," + value_sigma + ")";
     blockly.Python.definitions_['import_random'] = 'import random';
     return [code, blockly.Python.ORDER_NONE];
 };
