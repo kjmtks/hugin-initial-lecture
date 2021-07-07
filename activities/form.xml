@@ -8,7 +8,7 @@
   <Tags>{{ tags }}</Tags>
   <Deadline>{{ deadline }}</Deadline>
 
-  <Flags>
+  <Options>
     <UseStdout>false</UseStdout>
     <UseStderr>false</UseStderr>
     <UseCommand>false</UseCommand>
@@ -23,7 +23,10 @@
     {{ if !is_null_or_whitespace(confirm_automatically) }}
       <ConfirmAutomatically>{{ confirm_automatically }}</ConfirmAutomatically>
     {{ end }}
-  </Flags>
+    {{ if !is_null_or_whitespace(default_submit_status) }}
+      <DefaultSubmitStatus>{{ default_submit_status }}</DefaultSubmitStatus>
+    {{ end }}
+  </Options>
 
   <Files>
 
