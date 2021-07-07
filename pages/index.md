@@ -12,7 +12,7 @@ print `Hello, World!!`
   <code_answer>print("Hello, World!!")</code_answer>
   <num_of_testcases>1</num_of_testcases>
   <testcase1answer>Hello, World!!</testcase1answer>
-  <confirm_automatically>true</confirm_automatically>
+  <default_submit_status>AcceptingResubmit</default_submit_status>
   <can_submit_before_run>false</can_submit_before_run>
   <can_submit_before_accept>false</can_submit_before_accept>
   <can_validate_before_run>false</can_validate_before_run>
@@ -40,7 +40,7 @@ Hello, World!!
 Hello, World!!
 Hello, World!!
 Hello, World!!</testcase1answer>
-  <confirm_automatically>true</confirm_automatically>
+  <default_submit_status>AcceptingResubmit</default_submit_status>
   <can_submit_before_run>false</can_submit_before_run>
   <can_submit_before_accept>false</can_submit_before_accept>
   <can_validate_before_run>false</can_validate_before_run>
